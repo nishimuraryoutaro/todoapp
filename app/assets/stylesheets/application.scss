@@ -1,0 +1,167 @@
+@import 'form';
+@import 'buttons';
+
+/* ---------- Theme Tokens ---------- */
+$bg:        #0f1216;
+$card:      rgba(255, 255, 255, 0.06);
+$card-blur: 14px;
+$border:    rgba(255, 255, 255, 0.12);
+$shadow:    0 10px 30px rgba(0, 0, 0, 0.45);
+$primary:   #5b8cff; /* アクセント（お好みで） */
+$accent:    #22d3ee;
+$text:      #e8eef6;
+$muted:     #a0afc1;
+$danger:    #ff6b6b;
+
+$radius-lg: 16px;
+$radius-sm: 10px;
+$transition: .22s cubic-bezier(.22,1,.36,1);
+
+/* ---------- Page Baseline ---------- */
+html, body {
+  height: 100%;
+  background: radial-gradient(1200px 800px at 10% 10%, #1a2030 0%, #0f1216 55%) fixed,
+              radial-gradient(900px 600px at 90% 80%, #112233 0%, #0f1216 60%) fixed,
+              $bg;
+  color: $text;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+  line-height: 1.6;
+}
+
+/* ---------- Container & Headings ---------- */
+.container {
+  max-width: 560px;
+  margin: clamp(32px, 6vw, 72px) auto;
+  padding: clamp(18px, 3vw, 28px);
+  border-radius: $radius-lg;
+  background: $card;
+  backdrop-filter: blur($card-blur);
+  -webkit-backdrop-filter: blur($card-blur);
+  border: 1px solid $border;
+  box-shadow: $shadow;
+
+  h2 {
+    margin: 0 0 20px;
+    font-size: clamp(20px, 3.2vw, 28px);
+    font-weight: 700;
+    letter-spacing: .2px;
+    background: linear-gradient(90deg, $primary, $accent);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+/* ---------- Form Fields ---------- */
+.field {
+  margin-bottom: 18px;
+
+  label {
+    display: inline-block;
+    margin: 0 0 8px;
+    font-size: 14px;
+    color: $muted;
+    letter-spacing: .3px;
+  }
+
+  /* 共通テキスト入力（.text を付けている前提） */
+  .text,
+  input[type="email"].text,
+  input[type="password"].text,
+  input[type="text"].text {
+    width: 100%;
+    appearance: none;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid $border;
+    color: $text;
+    border-radius: $radius-sm;
+    padding: 12px 14px;
+    font-size: 15px;
+    transition: border-color $transition, box-shadow $transition, background-color $transition, transform $transition;
+
+    &:hover {
+      background: rgba(255,255,255,0.09);
+      border-color: rgba($primary, .45);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $primary;
+      box-shadow: 0 0 0 4px rgba($primary, 0.18), inset 0 0 0 1px rgba($primary, .6);
+      transform: translateY(-1px);
+    }
+
+    &::placeholder { color: rgba($muted, .7); }
+  }
+
+  /* チェックボックス行 */
+  input[type="checkbox"] {
+    accent-color: $primary; /* Safari/Chromium */
+    width: 16px; height: 16px;
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+}
+
+/* 最小文字数の補足（Devise の %em 用） */
+.field em {
+  font-style: normal;
+  font-size: 12px;
+  color: $muted;
+  margin-left: 6px;
+}
+
+/* ---------- Actions (Buttons) ---------- */
+.actions {
+  margin-top: 24px;
+
+  input[type="submit"] {
+    width: 100%;
+    appearance: none;
+    border: none;
+    border-radius: $radius-sm;
+    padding: 12px 16px;
+    font-weight: 700;
+    letter-spacing: .3px;
+    color: #0b1020;
+    background: linear-gradient(135deg, $primary, $accent);
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba($primary, .25);
+    transition: transform $transition, box-shadow $transition, filter $transition;
+
+    &:hover { transform: translateY(-1px); filter: brightness(1.03); }
+    &:active { transform: translateY(0); box-shadow: 0 4px 12px rgba($primary, .18); }
+    &:disabled { opacity: .6; cursor: not-allowed; }
+  }
+}
+
+/* ---------- Devise shared links ---------- */
+.devise-links,
+.devise-links a,
+.devise_shared_links, /* 念のため複数セレクタ */
+.devise a {
+  color: $muted;
+  font-size: 14px;
+
+  a {
+    color: $primary;
+    text-decoration: none;
+    border-bottom: 1px dashed transparent;
+    transition: color $transition, border-color $transition;
+
+    &:hover {
+      color: $accent;
+      border-color: rgba($accent, .6);
+    }
+  }
+}
+
+/* ---------- Small Enhancements ---------- */
+.container {
+  /* section 間の余白調整：ログイン/サインアップが同ページに並ぶケースを想定 */
+  & + .container { margin-top: 28px; }
+}
+
+/* ステート/バリデーション例（必要なら） */
+.field--error .text { border-color: $danger; box-shadow: 0 0 0 3px rgba($danger, .2); }
+.field--error label { color: $danger; }
