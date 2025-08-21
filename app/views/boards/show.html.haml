@@ -1,0 +1,34 @@
+.article
+  %h1.article_title= @article.title
+  .article_detail
+    %div
+    - if user_signed_in? && current_user.has_written?(@article)
+      .article_detail_actions
+        .dropdown
+          = image_tag 'actions.svg', class: 'dropbtn'
+          .dropdown-content.mini
+            = link_to '編集する', edit_board_path(@article)
+            = link_to '削除する', board_path(@article), data: { turbo_method: 'delete', turbo_confirm: '本当に削除してもよろしいですか？' }
+  .article_content
+    = @article.content
+  -# - if user_signed_in?
+  -#   - if current_user.has_liked?(@article)
+  -#     .article_heart
+  -#       = link_to article_like_path(@article), data: { turbo_method: 'delete' } do
+  -#         = image_tag 'heart-active.svg'
+  -#   - else
+  -#     .article_heart
+  -#       = link_to article_like_path(@article), data: { turbo_method: 'post' } do
+  -#         = image_tag 'heart.svg'
+
+
+-# .article
+-#   %h2 コメント一覧
+-#   - @comments.each do |comment|
+-#     .article_comment
+-#       %p= comment.content
+
+-# .container
+-#   = link_to new_article_comment_path(@article) do
+-#     .btn-secondary
+-#       コメントを追加
