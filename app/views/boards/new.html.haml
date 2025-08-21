@@ -1,0 +1,16 @@
+.container
+  %ul
+    - @article.errors.full_messages.each do |message|
+      %li= message
+
+  = form_with(model: @article, local: true, class: "article-form") do |f|
+    .form-group
+      = f.label :title, 'タイトル', class: "form-label"
+      = f.text_field :title, class: 'form-input'
+
+    .form-group
+      = f.label :content, '内容', class: "form-label"
+      = f.text_area :content, class: "form-textarea"
+
+    .form-actions
+      = f.submit '保存', class: 'btn btn-primary'

@@ -1,0 +1,16 @@
+%h1 記事一覧
+
+%table.article-table
+  %tbody
+    - @articles.each do |article|
+      %tr
+        %td= article.id
+        %td= article.title
+        %td= truncate(article.content, length: 50)
+        %td= l(article.created_at, format: :short)
+        %td
+          = link_to '詳細',board_path(article), class: "btn btn-show"
+          = link_to '編集', edit_board_path(article), class: "btn btn-edit"
+          = link_to '削除', board_path(article), data: { turbo_method: :delete, confirm: "削除しますか？" }, class: "btn btn-delete"
+
+= link_to '新規記事作成', new_board_path, class: "btn btn-new"
