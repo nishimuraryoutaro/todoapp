@@ -37,9 +37,9 @@ class BoardsController < ApplicationController
   def destroy
     @board = current_user.boards.find(params[:id])
     if @board.destroy
-      redirect_to root_path, status: :see_other, notice: '削除に成功しました'
+      redirect_to root_path, status: :see_other, notice: "削除に成功しました"
     else
-      redirect_to board_path(@board), alert: '削除できませんでした'
+      redirect_to board_path(@board), alert: "削除できませんでした"
     end
   end
 
